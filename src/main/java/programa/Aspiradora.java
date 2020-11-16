@@ -35,68 +35,69 @@ public class Aspiradora {
 
         int opcion;
         boolean salir = false;
-        do{
-        usuario = JOptionPane.showInputDialog(null, "Introduzca el usuario");//Peticion de usuario
-        contrasenia = JOptionPane.showInputDialog(null, "Introduzca la contraseña");//Peticion de contraseña
-        
-        if (usuario.equals(USUARIO) && contrasenia.equals(CONTRASENIA)) {
-            do {
+        do {
+            usuario = JOptionPane.showInputDialog(null, "Introduzca el usuario");//Peticion de usuario
+            contrasenia = JOptionPane.showInputDialog(null, "Introduzca la contraseña");//Peticion de contraseña
 
-                String[] menu = {"Configurar el sistema", "Carga", "Aspiracion", "Aspiracion y fregado", "Estado General", "Base de carga", "Salir"};
-                //Creacion del switch y del menu con el showOptionDialog
-                opcion = JOptionPane.showOptionDialog(null, "Elija una opcion", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, menu, menu[0]);
+            if (usuario.equals(USUARIO) && contrasenia.equals(CONTRASENIA)) {
+                do {
 
-                switch (opcion) {
-                    case 0: {
-                        //Creacion de strings array y llamada a las funciones para pedir metros, nombre y numero de habitaciones
-                        n = nhabitaciones();
-                        habitacion = new String[n];
-                        mcuadrado = new int[n];
-                        for (int i = 0; i < n; i++) {
+                    String[] menu = {"Configurar el sistema", "Carga", "Aspiracion", "Aspiracion y fregado", "Estado General", "Base de carga", "Salir"};
+                    //Creacion del switch y del menu con el showOptionDialog
+                    opcion = JOptionPane.showOptionDialog(null, "Elija una opcion", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, menu, menu[0]);
 
-                            habitacion[i] = nombrehab();
-                            if (habitacion[i] == null) {
-                                n = 0;
-                                break;
+                    switch (opcion) {
+                        case 0: {
+                            //Creacion de strings array y llamada a las funciones para pedir metros, nombre y numero de habitaciones
+                            n = nhabitaciones();
+                            habitacion = new String[n];
+                            mcuadrado = new int[n];
+                            for (int i = 0; i < n; i++) {
+
+                                habitacion[i] = nombrehab();
+                                if (habitacion[i] == null) {
+                                    n = 0;
+                                    break;
+                                }
+                                mcuadrado[i] = metrocuadrado();
+
                             }
-                            mcuadrado[i] = metrocuadrado();
-
+                            break;
                         }
-                        break;
-                    }
-                    case 1: {//Llamada a la funcion para establecer la carga e igualacion de posicion a -1 para hacer saber que el robot está en la base de carga
-                        carga = carga();
-                        posicion = -1;
-                        break;
-                    }
-                    case 2: {
-                        carga = process(1, n, habitacion, mcuadrado, carga);//llamada a la funcion process con la opcion en 1 para el modo aspirado
-                        break;
-                    }
-                    case 3: {
-                        carga = process(2, n, habitacion, mcuadrado, carga);//llamada a la funcion process con la opcion en 2 para el modo aspirado y fregado
-                        break;
-                    }
-                    case 4: {
-                        estado(habitacion, carga, mcuadrado);//llamada a la funcion estado para saber el estado general
-                        break;
-                    }
-                    case 5: {//Igualacion de la variable carga a 100 e igualacion de posicion a -1 para hacer saber que el robot está en la base de carga
-                        posicion = -1;
-                        carga = 100;
-                        break;
-                    }
-                    default: {//Tanto la X del JOptionPane como el boton salir llevan al Default
-                        salir = true;
-                        break;
+                        case 1: {//Llamada a la funcion para establecer la carga e igualacion de posicion a -1 para hacer saber que el robot está en la base de carga
+                            carga = carga();
+                            posicion = -1;
+                            break;
+                        }
+                        case 2: {
+                            carga = process(1, n, habitacion, mcuadrado, carga);//llamada a la funcion process con la opcion en 1 para el modo aspirado
+                            break;
+                        }
+                        case 3: {
+                            carga = process(2, n, habitacion, mcuadrado, carga);//llamada a la funcion process con la opcion en 2 para el modo aspirado y fregado
+                            break;
+                        }
+                        case 4: {
+                            estado(habitacion, carga, mcuadrado);//llamada a la funcion estado para saber el estado general
+                            break;
+                        }
+                        case 5: {//Igualacion de la variable carga a 100 e igualacion de posicion a -1 para hacer saber que el robot está en la base de carga
+                            posicion = -1;
+                            carga = 100;
+                            break;
+                        }
+                        default: {//Tanto la X del JOptionPane como el boton salir llevan al Default
+                            salir = true;
+                            break;
+                        }
+
                     }
 
-                }
-
-            } while (!salir);//Condicion de salida del bucle
-        } else {
-            JOptionPane.showMessageDialog(null, "Contraseña o usuario equivocado intentelo de nuevo","Error!", JOptionPane.ERROR_MESSAGE);//Mensaje de equivocacion
-        }}while (!usuario.equals(USUARIO) && !contrasenia.equals(CONTRASENIA));//Condicion de repeticion del programa mientras la contraseña sea fallida
+                } while (!salir);//Condicion de salida del bucle
+            } else {
+                JOptionPane.showMessageDialog(null, "Contraseña o usuario equivocado intentelo de nuevo", "Error!", JOptionPane.ERROR_MESSAGE);//Mensaje de equivocacion
+            }
+        } while (!usuario.equals(USUARIO) && !contrasenia.equals(CONTRASENIA));//Condicion de repeticion del programa mientras la contraseña sea fallida
     }
 
     public static int nhabitaciones() {
@@ -113,7 +114,7 @@ public class Aspiradora {
                 numeroh = Integer.parseInt(snumeroh);//parse de string a int
 
                 if (numeroh < 0) {
-                    JOptionPane.showMessageDialog(null, "Dato incorrecto intentelo de nuevo","Error!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Dato incorrecto intentelo de nuevo", "Error!", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NumberFormatException e) {//Aplicacion de la exepcion NumberFormatException
                 salir = false;
@@ -135,7 +136,7 @@ public class Aspiradora {
                 }
                 mc = Integer.parseInt(smc);
                 if (mc < 0 || mc > 100) {
-                    JOptionPane.showMessageDialog(null, "Dato incorrecto intentelo de nuevo","Error!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Dato incorrecto intentelo de nuevo", "Error!", JOptionPane.ERROR_MESSAGE);
                     salir = false;
                 }
             } catch (NumberFormatException e) {//Aplicacion de la exepcion NumberFormatException
@@ -165,7 +166,7 @@ public class Aspiradora {
                 String scarga = JOptionPane.showInputDialog(null, "Introduzca la carga de la aspiradora");
                 carga = Double.parseDouble(scarga);
                 if (carga < 0 || carga > 100) {
-                    JOptionPane.showMessageDialog(null, "Dato incorrecto intentelo de nuevo","Error!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Dato incorrecto intentelo de nuevo", "Error!", JOptionPane.ERROR_MESSAGE);
                     salir = false;
                 }
             } catch (NumberFormatException e) {//Aplicacion de la exepcion NumberFormatException
@@ -194,9 +195,9 @@ public class Aspiradora {
             JOptionPane.showMessageDialog(null, "Se ha limpiado la habitación: " + habitacion);
         } else if (cargaT >= 0) {//comprobacion de que carga sea superior a 0
             carga = 3;
-            JOptionPane.showMessageDialog(null, "Se ha limpiado parte de la habitación: " + habitacion + ", a la aspiradora sólo le queda un 3% de batería. No se puede limpiar la habitacion","Error!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se ha limpiado parte de la habitación: " + habitacion + ", a la aspiradora sólo le queda un 3% de batería. No se puede limpiar la habitacion", "Error!", JOptionPane.ERROR_MESSAGE);
         } else {//Mensaje de cuando no tiene bateria suficiente
-            JOptionPane.showMessageDialog(null, "La aspiradora no tiene suficiente batería para la habitación: " + habitacion + ".No se puede limpiar la habitacion","Error!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La aspiradora no tiene suficiente batería para la habitación: " + habitacion + ".No se puede limpiar la habitacion", "Error!", JOptionPane.ERROR_MESSAGE);
         }
         return carga;
     }
@@ -243,7 +244,7 @@ public class Aspiradora {
                     break;
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No ha metido datos de habitaciones introduzcalas en Configurar el sistema","Error!", JOptionPane.ERROR_MESSAGE);//Mensaje por si no se introducen datos de habitaciones
+            JOptionPane.showMessageDialog(null, "No ha metido datos de habitaciones introduzcalas en Configurar el sistema", "Error!", JOptionPane.ERROR_MESSAGE);//Mensaje por si no se introducen datos de habitaciones
         }
         return carga;
     }
@@ -264,7 +265,7 @@ public class Aspiradora {
 
             }
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No existen habitaciones en la base de datos, por favor introduzcalas","Error!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No existen habitaciones en la base de datos, por favor introduzcalas", "Error!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
