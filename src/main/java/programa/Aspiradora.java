@@ -7,7 +7,7 @@ package programa;
 
 import javax.swing.JOptionPane;
 import java.util.Date;
-
+import java.util.Arrays;
 /**
  *
  * @author ismae
@@ -19,6 +19,7 @@ public class Aspiradora {
     static final double FREG = 2.25;
     static int posicion = 0;
 
+    
     /**
      * @param args the command line arguments
      */
@@ -208,8 +209,8 @@ public class Aspiradora {
                     break;
 
                 case 2:
-                    String[] copy = new String[n + 1];
-                    System.arraycopy(habitacion, 0, copy, 0, habitacion.length);//Copia el array habitaciones en copy y le añade una posicion mas que se llama salir, ademas de crear unas variables booleanas llamadas carga y salir
+                    String[] copy;
+                    copy=Arrays.copyOf(habitacion,habitacion.length+1);//Copia el array habitaciones en copy y le añade una posicion mas que se llama salir, ademas de crear unas variables booleanas llamadas carga y salir
                     copy[copy.length - 1] = "Salir";
                     double cargaP = 0;
                     boolean bsalir = false;
