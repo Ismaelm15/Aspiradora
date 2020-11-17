@@ -43,20 +43,20 @@ public class Aspiradora {
         do {
             usuario = JOptionPane.showInputDialog(null, "Introduzca el usuario");//Peticion de usuario
 
-            JPanel panel = new JPanel();
+            JPanel panel = new JPanel();//Creacion de un JPanel, un JLabel y JPasswordField 
             JLabel label = new JLabel("Introduzca una contraseña");
             JPasswordField pass = new JPasswordField(10);
             panel.add(label);
             panel.add(pass);
-            String[] options = new String[]{"Cancelar", "Aceptar"};
+            String[] options = new String[]{"Cancelar", "Aceptar"};//Creacion de la string para el menu
             int option = JOptionPane.showOptionDialog(null, panel, "Contraseña",
                     JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-                    null, options, options[1]);
-            if (option == 1) // pressing OK button
+                    null, options, options[1]);//Creacion de la ventana
+            if (option == 1) //Presionar el boton de Aceptar
             {
                 password = pass.getPassword();
 
-                if (usuario.equals(USUARIO) && CONTRASENIA.equals(new String(password))) {
+                if (usuario.equals(USUARIO) && CONTRASENIA.equals(new String(password))) {//Comprbacion de que la contraseña sea igual
                     do {
 
                         String[] menu = {"Configurar el sistema", "Carga", "Aspiracion", "Aspiracion y fregado", "Estado General", "Base de carga", "Salir"};
@@ -189,9 +189,10 @@ public class Aspiradora {
                     salir = false;
                 }
                 
-            } catch (NumberFormatException | NullPointerException e) {//Aplicacion de la exepcion NumberFormatException
+            } catch (NumberFormatException | NullPointerException e) {//Aplicacion de la exepcion NumberFormatException y la NullPointerException 
                 
-                JOptionPane.showMessageDialog(null, "La bateria no ha podido ser actualizada volviendo al menu...", "Error!", JOptionPane.ERROR_MESSAGE);  
+                JOptionPane.showMessageDialog(null, "La bateria no ha podido ser actualizada volviendo al menu...", "Error!", JOptionPane.ERROR_MESSAGE);
+                //Salida al menu si se falla o se le da a la cruz de la ventana
             }
         } while (!salir);
 
@@ -228,7 +229,7 @@ public class Aspiradora {
         //Creacion del array modo
         String[] modo = {"Modo Completo", "Modo Dependencia"};
         if (n != 0) {//Comprobacion de que tiene habitaciones introducidas
-            int selector = JOptionPane.showOptionDialog(null, "Elija una opcion", "Modo Aspiración", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, modo, modo[0]);
+            int selector = JOptionPane.showOptionDialog(null, "Elija una opcion", "Modo Aspiración", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, modo, modo[0]);//Joption de menu
             selector++;
             switch (selector) {//Declaracion del switch
                 case 1:
@@ -258,7 +259,7 @@ public class Aspiradora {
                         } else {
                             cargaP = carga - limpiar(habitacion[recorrer], mcuadrado[recorrer], 0);
                             carga = comprobar(cargaP, habitacion[recorrer],recorrer);
-                            posicion = recorrer;//Llamada a la funcion limpieza y a la comprobacion de bateria
+                            //Llamada a la funcion limpieza y a la comprobacion de bateria
                         }
 
                     } while (carga > 3 && !bsalir);
@@ -280,13 +281,13 @@ public class Aspiradora {
                 JOptionPane.showMessageDialog(null, "El robot está ubicado en la base de carga");//El -1 indica que el robot esta en la base de carga
 
             } else {
-                JOptionPane.showMessageDialog(null, "El robot está ubicado en la habitacion " + habitacion[posicion]);
+                JOptionPane.showMessageDialog(null, "El robot está ubicado en la habitacion " + habitacion[posicion]);//para indicar la habitacion actual
             }
             for (int i = 0; i < habitacion.length; i++) {
                 JOptionPane.showMessageDialog(null, "Nombre de la habitacion: " + habitacion[i] + ", metros de la habitacion " + metros[i] + " metros cuadrados");//Mostrar todas las habitaciones
 
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException e) {//catch para el nullpointerexception
             JOptionPane.showMessageDialog(null, "No existen habitaciones en la base de datos, por favor introduzcalas", "Error!", JOptionPane.ERROR_MESSAGE);
         }
     }
